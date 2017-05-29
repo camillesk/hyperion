@@ -25,16 +25,19 @@ $result1 = mysqli_query($conn, $selCliente);
 
 $result2 = mysqli_query($conn, $selImovel);
 
+//associa os resultados dos selects
 $row1 = mysqli_fetch_assoc($result1);
 
 $row2 = mysqli_fetch_assoc($result2);
 
+//verificacao de idade, renda e valor do imovel
 if($row1['Idade'] < '18' or $row1['Idade'] >= 65 or $row1['Renda'] < 500.00 or $row1['Renda'] > 3499.99 or $row2['Preco'] > 180000.00){
 	$insert = "INSERT INTO financiamento (CPF, Codigo_Imovel, Status)
 			VALUES ('$cliente', '$imovel', 'NEGADO')";
 }else{
 	$entrada = $row1['Renda'] * 5;
 
+//definicao do percentual pela idade
 	if($row1['Idade'] >= 18 and $row1['Idade'] <= 25){
 		$percentualIdade = 0.03;
 	}else if($row1['Idade'] >= 26 and $row1['Idade'] <= 34){
@@ -43,6 +46,7 @@ if($row1['Idade'] < '18' or $row1['Idade'] >= 65 or $row1['Renda'] < 500.00 or $
 		$percentualIdade = 0.02;
 	}
 
+//definicao do percentual pela renda
 	if($row1['Renda'] >= 500 and $row1['Renda'] <= 1499.99){
 		$percentualRenda = 0.03;
 	}else if($row1['Renda'] >= 1500 and $row1['Renda'] <= 2499.99){
@@ -51,6 +55,7 @@ if($row1['Idade'] < '18' or $row1['Idade'] >= 65 or $row1['Renda'] < 500.00 or $
 		$percentualRenda = 0.015;
 	}
 
+//definicao do percentual de juros
 	if($row1['Renda'] >= 500 and $row1['Renda'] <= 1499.99){
 		$juros = 0.02;
 	}else if($row1['Renda'] >= 1500 and $row1['Renda'] <= 2499.99){
@@ -65,6 +70,7 @@ if($row1['Idade'] < '18' or $row1['Idade'] >= 65 or $row1['Renda'] < 500.00 or $
 
 	$prestacao = ($financiar * (1 + pow($juros,$parcela/12))) / $parcela;
 
+//verificação do valor de cada prestacao e a renda do cliente
 	if($prestacao > $row1['Renda']/2){
 		$insert = "INSERT INTO financiamento (CPF, Codigo_Imovel, Juros, Parcela, Entrada, Subsidio, Qtd_Parcelas, Status)
 			VALUES ('$cliente', '$imovel', '$juros', '$prestacao', '$entrada', '$subsidio', '$parcela', 'INVIAVEL')";

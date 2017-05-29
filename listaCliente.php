@@ -89,12 +89,12 @@ $total = mysqli_num_rows($result);
 						<td style="vertical-align:middle;"><?=$row['CPF']?></td>
 						<td style="vertical-align:middle;"><?=$row['Idade']?></td>
 						<td style="vertical-align:middle;"><?=$row['Renda']?></td>
+						<!-- a passagem do cpf especifico a ser excluido os dados é passado via url aqui -->
 						<td style="vertical-align:middle;"><a class="btn btn-sm btn-danger" href="deleteCliente.php?cpf=<?php echo $row['CPF']; ?>">Excluir</a></td>
 					</tr>
 			<?php
 				// finaliza o loop que vai mostrar os dados
 				}while($row = mysqli_fetch_assoc($result));
-			// fim do if 
 			}
 
 			mysqli_close($conn);

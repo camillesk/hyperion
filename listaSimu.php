@@ -100,6 +100,7 @@ $total = mysqli_num_rows($result);
 						<td style="text-align:center; vertical-align:middle;"><?=$row['Juros']?></td>
 						<td style="text-align:center; vertical-align:middle;"><?=$row['Qtd_Parcelas']?></td>
 						<td style="text-align:center; vertical-align:middle;"><?=$row['Status']?></td>
+						<!-- caso o status seja simulação, é criada a opção de alterar o status para aceito ou não aceito -->
 						<?php if( $row['Status'] == 'SIMULACAO'){
 							$cod = $row['Codigo_Finan'];
 							echo"<form method='post' action='atualizaSimu.php'>
@@ -120,7 +121,6 @@ $total = mysqli_num_rows($result);
 			<?php
 				// finaliza o loop que vai mostrar os dados
 				}while($row = mysqli_fetch_assoc($result));
-			// fim do if 
 			}
 
 			mysqli_close($conn);

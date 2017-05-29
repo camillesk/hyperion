@@ -11,6 +11,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
+//select's para mostrar nos selects os dados que existem no database
+
 $select1 = mysqli_query($conn, "SELECT CPF, Nome_Cliente FROM cliente");
 
 $select2 = mysqli_query($conn, "SELECT Codigo_Imovel, Nome_Imovel FROM imovel");
@@ -68,7 +70,7 @@ $select2 = mysqli_query($conn, "SELECT Codigo_Imovel, Nome_Imovel FROM imovel");
 			    	<select class="form-control" id="sel1" name="sel1">
 			    		<option selected="selected" value="default">Escolha um cliente</option>
 			    		<?php 
-							
+							//passa dos dados para options do select
 							while ($row = mysqli_fetch_assoc($select1)){
 							echo "<option value=".$row['CPF'].">" . $row['Nome_Cliente'] . "</option>";
 							}
@@ -81,7 +83,7 @@ $select2 = mysqli_query($conn, "SELECT Codigo_Imovel, Nome_Imovel FROM imovel");
 			    	<select class="form-control" id="sel2"  name="sel2">
 			    	<option selected="selected">Escolha um imóvel</option>
 			    		<?php 
-							
+							//passa dos dados para options do select
 							while ($row = mysqli_fetch_assoc($select2)){
 							echo "<option value=".$row['Codigo_Imovel'].">" . $row['Nome_Imovel'] . "</option>";
 							}

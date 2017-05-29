@@ -86,12 +86,12 @@ $total = mysqli_num_rows($result);
 						<td style="vertical-align:middle;"><?=$row['Nome_Imovel']?></td>
 						<td style="vertical-align:middle;"><?=$row['Unidade']?></td>
 						<td style="vertical-align:middle;"><?=$row['Preco']?></td>
+						<!-- a passagem do codigo especifico a ser excluido os dados é passado via url aqui -->
 						<td style="vertical-align:middle;"><a class="btn btn-sm btn-danger" href="deleteImovel.php?cod=<?php echo $row['Codigo']; ?>">Excluir</a></td>
 					</tr>
 			<?php
 				// finaliza o loop que vai mostrar os dados
 				}while($row = mysqli_fetch_assoc($result));
-			// fim do if 
 			}
 
 			mysqli_close($conn);
